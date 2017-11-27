@@ -18,10 +18,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import pl.michal.olszewski.jpa.base.Profiles;
+
 
 @DataJpaTest
-@ActiveProfiles(Profiles.TEST)
 @RunWith(JUnitPlatform.class)
 @ExtendWith(org.springframework.test.context.junit.jupiter.SpringExtension.class)
 public class PersistTest {
