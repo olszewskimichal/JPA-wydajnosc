@@ -16,7 +16,7 @@ import pl.michal.olszewski.jpa.base.EntityBase;
 @Setter
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "object")
+@EqualsAndHashCode(exclude = "object",callSuper = true)
 public class SelectObject extends EntityBase {
 
   private BigDecimal value;

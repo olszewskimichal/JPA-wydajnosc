@@ -134,8 +134,8 @@ public class SelectTest {
     entityManager.clear();
     statistics.clear();
     //when
-    List<SelectProblemEntity> list = entityManager.createQuery("select s from SelectProblemEntity s left join fetch s.list", SelectProblemEntity.class).getResultList();
-    entityManager.createQuery("select s from SelectProblemEntity s left join fetch s.anotherList", SelectProblemEntity.class).getResultList();
+    List<SelectProblemEntity> list = entityManager.createQuery("select distinct s from SelectProblemEntity s left join fetch s.list", SelectProblemEntity.class).getResultList();
+    entityManager.createQuery("select distinct s from SelectProblemEntity s left join fetch s.anotherList", SelectProblemEntity.class).getResultList();
     list.forEach(v -> v.list.size());
     list.forEach(v -> v.anotherList.size());
     //then
