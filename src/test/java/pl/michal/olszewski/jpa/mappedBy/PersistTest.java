@@ -47,6 +47,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(5),
@@ -63,6 +64,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(3),

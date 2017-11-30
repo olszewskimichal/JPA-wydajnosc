@@ -49,6 +49,7 @@ public class PersistTest {
     //when
     entityManager.persist(setEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(1),
@@ -63,6 +64,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(1),
@@ -79,6 +81,7 @@ public class PersistTest {
     //when
     entityManager.persist(setEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(5),
@@ -93,6 +96,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(5),
@@ -107,9 +111,11 @@ public class PersistTest {
         .build();
     //when
     entityManager.persist(setEntity);
+    entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
-        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(2),
+        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(3),
         () -> assertThat(statistics.getEntityInsertCount()).isEqualTo(2)
     );
   }
@@ -120,9 +126,11 @@ public class PersistTest {
     UndListEntity listEntity = UndListEntity.builder().list(Arrays.asList(UndListObject.builder().value1(BigDecimal.ONE).build(), UndListObject.builder().value1(BigDecimal.ONE).build())).build();
     //when
     entityManager.persist(listEntity);
+    entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
-        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(3),
+        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(5),
         () -> assertThat(statistics.getEntityInsertCount()).isEqualTo(3)
     );
   }
