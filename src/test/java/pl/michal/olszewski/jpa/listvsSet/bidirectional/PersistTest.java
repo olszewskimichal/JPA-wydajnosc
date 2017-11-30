@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.math.BigDecimal;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.stat.Statistics;
@@ -16,7 +15,6 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 
 @DataJpaTest
@@ -48,6 +46,7 @@ public class PersistTest {
     //when
     entityManager.persist(setEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(1),
@@ -62,6 +61,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(1),
@@ -79,6 +79,7 @@ public class PersistTest {
     //when
     entityManager.persist(setEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(4),
@@ -96,6 +97,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(4),
@@ -112,6 +114,7 @@ public class PersistTest {
     //when
     entityManager.persist(setEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(2),
@@ -128,6 +131,7 @@ public class PersistTest {
     //when
     entityManager.persist(listEntity);
     entityManager.flush();
+    entityManager.clear();
     //then
     assertAll(
         () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(3),
