@@ -145,4 +145,58 @@ public class SelectTest {
     );
   }
 
+  @Test
+  void shouldUse1SelectWithFetchElementCollection() {
+    //given
+    ElementCollectionEntity entity = ElementCollectionEntity.builder().build();
+    entity.getValues().add("test");
+    entity.getValues().add("test2");
+    entity.getValues().add("test3");
+    ElementCollectionEntity entity2 = ElementCollectionEntity.builder().build();
+    entity.getValues().add("test");
+    entity.getValues().add("test2");
+    entity.getValues().add("test3");
+    entityManager.persist(entity);
+    entityManager.persist(entity2);
+    entityManager.flush();
+    entityManager.clear();
+    statistics.clear();
+    //when
+    List<ElementCollectionEntity> list = entityManager.createQuery("select s from ElementCollectionEntity s left join fetch s.values", ElementCollectionEntity.class).getResultList();
+    list.forEach(v -> v.values.size());
+    //then
+    assertAll(
+        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(1),
+        () -> assertThat(statistics.getEntityLoadCount()).isEqualTo(2),
+        () -> assertThat(statistics.getCollectionLoadCount()).isEqualTo(2)
+    );
+  }
+
+  @Test
+  void shouldUse3SelectWithoutFetchElementCollection() {
+    //given
+    ElementCollectionEntity entity = ElementCollectionEntity.builder().build();
+    entity.getValues().add("test");
+    entity.getValues().add("test2");
+    entity.getValues().add("test3");
+    ElementCollectionEntity entity2 = ElementCollectionEntity.builder().build();
+    entity.getValues().add("test");
+    entity.getValues().add("test2");
+    entity.getValues().add("test3");
+    entityManager.persist(entity);
+    entityManager.persist(entity2);
+    entityManager.flush();
+    entityManager.clear();
+    statistics.clear();
+    //when
+    List<ElementCollectionEntity> list = entityManager.createQuery("select s from ElementCollectionEntity s", ElementCollectionEntity.class).getResultList();
+    list.forEach(v -> v.values.size());
+    //then
+    assertAll(
+        () -> assertThat(statistics.getPrepareStatementCount()).isEqualTo(3),
+        () -> assertThat(statistics.getEntityLoadCount()).isEqualTo(2),
+        () -> assertThat(statistics.getCollectionLoadCount()).isEqualTo(2)
+    );
+  }
+
 }
