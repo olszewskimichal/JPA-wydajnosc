@@ -3,7 +3,7 @@
 Testy sprawdzające jak wydajnie tworzyć encje / pisać zapytania z wykorzystaniem JPA i Hibernate.
 
 ### Problemy poruszone dotychczas w testach
-* czy lepiej używać S
+* czy lepiej używać Setów czy Listy ( w przypadku undirectional i bidirectional kolekcji )
 * czy warto uzywać mappedBy
 * n+1 selectów
 
